@@ -10,14 +10,42 @@ import UIKit
 
 class CityDetailVC: UIViewController {
     
-    var city: City!
+    @IBOutlet weak var CityNameLabel: UILabel!
+    
+    @IBOutlet weak var WeatherIcon: UIImageView!
+    
+    @IBOutlet weak var DayLabel: UILabel!
+    
+    @IBOutlet weak var TemperatureLabel: UILabel!
+    
+    @IBOutlet weak var RainPercentileLabel: UILabel!
+    
+    @IBOutlet weak var WindPercentileLabel: UILabel!
+    
+    
+    var cit: City!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        CityNameLabel.text = cit.city
+        cit.downloadWeatherDetails { () -> () in
+            self.updateUI()
+        }
+    }
+    
+    func updateUI() {
+        CityNameLabel.text = "\(cit.city), \(cit.country)"
+        DayLabel.text = cit.weatherDesc
+        TemperatureLabel.text = " \(cit.weatherTemp)°C"
+        WindPercentileLabel.text = " \(cit.windSpeed) m/s"
+        let img = UIImage(named: "\(cit.icon)")
+        WeatherIcon.image = img
     }
 
+    @IBAction func BackBtnPressed(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
