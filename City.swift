@@ -21,6 +21,7 @@ class City {
     private var _cityURL: String!
     private var _country: String!
     private var _icon: String!
+    private var _cloudPercentage: String!
     
     var city: String {
         get {
@@ -112,6 +113,18 @@ class City {
         }
     }
     
+    var cloudPercentage: String {
+        get {
+            if _cloudPercentage == nil {
+                _cloudPercentage = ""
+            }
+            return _cloudPercentage
+        }
+        set {
+            _cloudPercentage = cloudPercentage
+        }
+    }
+    
     init(cityname: String) {
         self._city = cityname
         
@@ -169,6 +182,13 @@ class City {
                             self._icon = icon
                         }
                     }
+                }
+                
+                if let cloudDict = dict["clouds"] as? Dictionary<String, AnyObject> {
+                    if let clouds = cloudDict["all"] as? Int {
+                        self._cloudPercentage = "\(clouds)"
+                    }
+                    
                 }
                 
                 

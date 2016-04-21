@@ -18,7 +18,7 @@ class CityDetailVC: UIViewController {
     
     @IBOutlet weak var TemperatureLabel: UILabel!
     
-    @IBOutlet weak var RainPercentileLabel: UILabel!
+    @IBOutlet weak var CloudPercentileLabel: UILabel!
     
     @IBOutlet weak var WindPercentileLabel: UILabel!
     
@@ -35,12 +35,13 @@ class CityDetailVC: UIViewController {
     }
     
     func updateUI() {
-        CityNameLabel.text = "\(cit.city), \(cit.country)"
+        CityNameLabel.text = "\(cit.city.capitalizedString), \(cit.country)"
         DayLabel.text = cit.weatherDesc
         TemperatureLabel.text = " \(cit.weatherTemp)°C"
         WindPercentileLabel.text = " \(cit.windSpeed) m/s"
         let img = UIImage(named: "\(cit.icon)")
         WeatherIcon.image = img
+        CloudPercentileLabel.text = " \(cit.cloudPercentage)%"
     }
 
     @IBAction func BackBtnPressed(sender: AnyObject) {
